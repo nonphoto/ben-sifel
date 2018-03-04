@@ -7,7 +7,8 @@ window.addEventListener('mousemove', (event) => {
 
 
 function draw() {
-    const radius = 100 + (Math.random() * 10)
+    const time = performance.now()
+    const radius = 100 + (noise.perlin2(time / 100, 0) * 5)
     lightSource.setAttribute('r', radius)
 
     requestAnimationFrame(draw)
