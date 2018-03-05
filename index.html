@@ -6,6 +6,24 @@
         <link rel="stylesheet" href="style.css"/>
         <script src="noise.js" defer></script>
         <script src="three.js" defer></script>
+        <script id="vertex-shader" type="x-shader/x-vertex" defer>
+        	uniform float time;
+            uniform vec2 resolution;
+
+            void main()	{
+                gl_Position = vec4(position, 1.0);
+            }
+        </script>
+        <script id="fragment-shader" type="x-shader/x-fragment" defer>
+            uniform float time;
+            uniform vec2 resolution;
+
+            void main()	{
+                float x = mod(time + gl_FragCoord.x, 20.0) < 10.0 ? 1. : 0.;
+                float y = mod(time + gl_FragCoord.y, 20.0) < 10.0 ? 1. : 0.;
+                gl_FragColor = vec4(vec3(min(x, y)), 1.0);
+            }
+        </script>
         <script src="main.js" defer></script>
 	</head>
 	<body>
