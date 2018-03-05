@@ -1,7 +1,12 @@
-const lightSource = document.querySelector('#light-source')
-
 const vw = window.innerWidth
 const vh = window.innerHeight
+
+const scene = new THREE.Scene()
+const camera = new THREE.PerspectiveCamera( 75, vw / vh, 0.1, 1000 )
+
+const renderer = new THREE.WebGLRenderer()
+renderer.setSize(vw, vh)
+document.body.appendChild(renderer.domElement)
 
 function draw() {
     const time = performance.now()
@@ -9,9 +14,6 @@ function draw() {
     const y =  ((noise.simplex2(time * 0.0001, 1000) * 0.4) + 0.5) * vh
     const radius = 100 + (noise.perlin2(time * 0.001, 0) * 5)
 
-    lightSource.setAttribute('cx', x)
-    lightSource.setAttribute('cy', y)
-    lightSource.setAttribute('r', radius)
 
     requestAnimationFrame(draw)
 }
