@@ -1,5 +1,5 @@
-const vertexShader = document.getElementById('vertex-shader').textContent
-const fragmentShader = document.getElementById('fragment-shader').textContent
+import vertexShader from './vertex.glsl'
+import fragmentShader from './fragment.glsl'
 
 const vw = window.innerWidth
 const vh = window.innerHeight
