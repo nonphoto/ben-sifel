@@ -26,13 +26,14 @@ const uniforms = {
 const material = new three.ShaderMaterial({
     uniforms,
     vertexShader,
-    fragmentShader
+    fragmentShader,
+    transparent: true
 })
 
 const mesh = new three.Mesh( new three.PlaneGeometry(2, 2), material)
 scene.add(mesh)
 
-const renderer = new three.WebGLRenderer()
+const renderer = new three.WebGLRenderer({alpha: true});
 renderer.setSize(vw, vh)
 document.body.appendChild(renderer.domElement)
 
