@@ -46,17 +46,18 @@ const rightWing = new three.Mesh(wingGeometry, redMaterial)
 scene.add(leftWing)
 scene.add(rightWing)
 
-leftWing.rotateY(0.1)
-rightWing.rotateY(-0.1)
+leftWing.rotateY(0.5)
+rightWing.rotateY(-0.5)
 
 const butterfly = new three.Object3D()
 butterfly.add(leftWing)
 butterfly.add(rightWing)
+butterfly.rotateX(1)
 scene.add(butterfly)
 
-const gridHelper = new three.GridHelper(2, 10, 0x00FF00, 0xFFFFFF);
+const gridHelper = new three.GridHelper(2, 10, 0x00FF00, 0xFFFFFF)
 gridHelper.rotateX(Math.PI / 2)
-scene.add(gridHelper);
+// scene.add(gridHelper)
 
 const renderer = new three.WebGLRenderer({alpha: true})
 renderer.setSize(vw, vh)
@@ -66,16 +67,16 @@ function draw() {
     requestAnimationFrame(draw)
 
     const time = performance.now()
-    const x = Math.sin(time * 0.00055) * 0.4
-    const y = simplex.noise2D(time * 0.0001, 1000) * 0.4
+    const x = Math.sin(time * 0.00055)
+    const y = simplex.noise2D(time * 0.0001, 1000)
     const radius = 100 + (simplex.noise2D(time * 0.001, 0) * 5)
 
     uniforms.time.value = performance.now()
-    uniforms.center.value.x = x
-    uniforms.center.value.y = y
+    uniforms.center.value.x = x * 0.4
+    uniforms.center.value.y = y * 0.4
 
-    butterfly.position.x = x
-    butterfly.position.y = y
+    butterfly.position.x = x * 0.4
+    butterfly.position.y = y * 0.4
 
     renderer.render(scene, camera)
 }
