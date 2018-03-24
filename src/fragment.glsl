@@ -3,7 +3,7 @@ uniform vec2 resolution;
 uniform vec2 center;
 
 void main()	{
-    float value = step(resolution.x * 0.5, gl_FragCoord.x) * 1.0;
-    float alpha = smoothstep(100.0, 150.0, length(gl_FragCoord.xy - center)) * 0.5;
-    gl_FragColor = vec4(value, value, value, alpha);
+    vec2 coord = (gl_FragCoord.xy / resolution) * 2.0 - 1.0;
+    float alpha = smoothstep(0.2, 0.3, length(coord - center)) * 0.5;
+    gl_FragColor = vec4(0.0, 0.0, 0.0, alpha);
 }
