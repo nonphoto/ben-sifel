@@ -20,6 +20,10 @@ const uniforms = {
     resolution: {
         type: "v2",
         value: new three.Vector2(vw, vh)
+    },
+    center: {
+        type: "v2",
+        value: new three.Vector2()
     }
 }
 
@@ -46,6 +50,9 @@ function draw() {
     const radius = 100 + (simplex.noise2D(time * 0.001, 0) * 5)
 
     uniforms.time.value = performance.now()
+    uniforms.center.value.x = x
+    uniforms.center.value.y = y
+
     renderer.render(scene, camera)
 }
 
