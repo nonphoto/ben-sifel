@@ -38,8 +38,8 @@ const screenGeometry = new three.PlaneGeometry(2, 2)
 const screenMesh = new three.Mesh(screenGeometry, screenMaterial)
 scene.add(screenMesh)
 
-const blueMaterial = new three.MeshBasicMaterial({color: 0x0000FF})
-const redMaterial = new three.MeshBasicMaterial({color: 0xFF0000})
+const blueMaterial = new three.MeshBasicMaterial({color: 0x0000FF, side: three.DoubleSide})
+const redMaterial = new three.MeshBasicMaterial({color: 0xFF0000, side: three.DoubleSide})
 const wingGeometry = new three.PlaneGeometry(0.2, 0.2)
 const leftWing = new three.Mesh(wingGeometry, blueMaterial)
 const rightWing = new three.Mesh(wingGeometry, redMaterial)
@@ -77,6 +77,7 @@ function draw() {
 
     butterfly.position.x = x * 0.4
     butterfly.position.y = y * 0.4
+    butterfly.rotateY(0.01)
 
     renderer.render(scene, camera)
 }
