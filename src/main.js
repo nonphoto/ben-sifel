@@ -7,10 +7,13 @@ const simplex = new SimplexNoise()
 
 const vw = window.innerWidth
 const vh = window.innerHeight
+const hvw = vw / 2
+const hvh = vh / 2
 
 const scene = new three.Scene()
-const camera = new three.Camera()
+const camera = new three.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000)
 camera.position.z = 1
+scene.add(camera)
 
 const uniforms = {
     time: {
@@ -27,18 +30,28 @@ const uniforms = {
     }
 }
 
-const material = new three.ShaderMaterial({
+const screenMaterial = new three.ShaderMaterial({
     uniforms,
     vertexShader,
     fragmentShader,
     transparent: true
 })
+const screenGeometry = new three.PlaneGeometry(2, 2)
+const screenMesh = new three.Mesh(screenGeometry, screenMaterial)
+scene.add(screenMesh)
 
-const mesh = new three.Mesh( new three.PlaneGeometry(2, 2), material)
-scene.add(mesh)
+const butterflyMaterial = new three.MeshBasicMaterial({color: 0x0000FF})
+const butterflyGeometry = new three.PlaneGeometry(1, 1)
+const butterflyMesh = new three.Mesh(butterflyGeometry, butterflyMaterial)
+scene.add(butterflyMesh)
 
-const renderer = new three.WebGLRenderer({alpha: true});
+const gridHelper = new three.GridHelper(2, 10, 0xFF0000, 0xFFFFFF);
+gridHelper.rotateX(Math.PI / 2)
+scene.add(gridHelper);
+
+const renderer = new three.WebGLRenderer({alpha: true})
 renderer.setSize(vw, vh)
+renderer.context.disable(renderer.context.DEPTH_TEST)
 document.body.appendChild(renderer.domElement)
 
 function draw() {
