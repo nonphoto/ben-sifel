@@ -2,6 +2,7 @@ import * as three from 'three'
 import SimplexNoise from 'simplex-noise'
 import vertexShader from './vertex.glsl'
 import fragmentShader from './fragment.glsl'
+import Vehicle from './vehicle'
 
 const simplex = new SimplexNoise()
 
@@ -59,24 +60,30 @@ const renderer = new three.WebGLRenderer({alpha: true})
 renderer.setSize(vw, vh)
 document.body.appendChild(renderer.domElement)
 
+const targetPosition = new three.Vector3()
+const vehicle = new Vehicle()
+
 function draw() {
     requestAnimationFrame(draw)
 
     const time = performance.now()
-    const x = Math.sin(time * 0.00055)
-    const y = simplex.noise2D(time * 0.0001, 1000)
+    targetPosition.x = simplex.noise2D(time * 0.00053, 0)
+    targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
     const radius = 100 + (simplex.noise2D(time * 0.001, 0) * 5)
 
     uniforms.time.value = performance.now()
-    uniforms.center.value.x = x * 0.8
-    uniforms.center.value.y = y * 0.8
+    uniforms.center.value = butterfly.position
 
-    leftWing.setRotationFromEuler(new three.Euler(Math.PI / 2, -0.5, 0))
-    rightWing.setRotationFromEuler(new three.Euler(Math.PI / 2, 0.5, 0))
+    leftWing.setRotationFromEuler(new three.Euler(Math.PI / 2, -0.1, 0))
+    rightWing.setRotationFromEuler(new three.Euler(Math.PI / 2, 0.1, 0))
 
-    butterfly.position.x = x * 0.8
-    butterfly.position.y = y * 0.8
-    butterfly.lookAt(0, 0, 0)
+    vehicle.seek(targetPosition)
+    vehicle.update()
+
+    butterfly.position.x = vehicle.position.x
+    butterfly.position.y = vehicle.position.y
+    console.log(vehicle.position.x)
+    butterfly.lookAt(new three.Vector3(0, 2, -1).add(targetPosition))
 
     renderer.render(scene, camera)
 }
