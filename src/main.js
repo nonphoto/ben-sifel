@@ -74,15 +74,16 @@ function draw() {
     uniforms.time.value = performance.now()
     uniforms.center.value = butterfly.position
 
-    leftWing.setRotationFromEuler(new three.Euler(Math.PI / 2, -0.1, 0))
-    rightWing.setRotationFromEuler(new three.Euler(Math.PI / 2, 0.1, 0))
+    const wingRotation = Math.sin(time * 0.01) * Math.PI * 0.4
+
+    leftWing.setRotationFromEuler(new three.Euler(Math.PI / 2, -wingRotation, 0))
+    rightWing.setRotationFromEuler(new three.Euler(Math.PI / 2, wingRotation, 0))
 
     vehicle.seek(targetPosition)
     vehicle.update()
 
     butterfly.position.x = vehicle.position.x
     butterfly.position.y = vehicle.position.y
-    console.log(vehicle.position.x)
     butterfly.lookAt(new three.Vector3(0, 2, -1).add(targetPosition))
 
     renderer.render(scene, camera)
