@@ -9,7 +9,7 @@ const vw = window.innerWidth
 const vh = window.innerHeight
 
 const scene = new three.Scene()
-const camera = new three.OrthographicCamera(-1, 1, 1, -1, 0.1, 1000)
+const camera = new three.PerspectiveCamera(90, vw / vh, 0.1, 1000)
 camera.position.z = 1
 scene.add(camera)
 
@@ -46,13 +46,9 @@ const rightWing = new three.Mesh(wingGeometry, redMaterial)
 scene.add(leftWing)
 scene.add(rightWing)
 
-leftWing.rotateY(0.5)
-rightWing.rotateY(-0.5)
-
 const butterfly = new three.Object3D()
 butterfly.add(leftWing)
 butterfly.add(rightWing)
-butterfly.rotateX(1)
 scene.add(butterfly)
 
 const gridHelper = new three.GridHelper(2, 10, 0x00FF00, 0xFFFFFF)
@@ -72,12 +68,15 @@ function draw() {
     const radius = 100 + (simplex.noise2D(time * 0.001, 0) * 5)
 
     uniforms.time.value = performance.now()
-    uniforms.center.value.x = x * 0.4
-    uniforms.center.value.y = y * 0.4
+    uniforms.center.value.x = x * 0.8
+    uniforms.center.value.y = y * 0.8
 
-    butterfly.position.x = x * 0.4
-    butterfly.position.y = y * 0.4
-    butterfly.rotateY(0.01)
+    leftWing.setRotationFromEuler(new three.Euler(Math.PI / 2, -0.5, 0))
+    rightWing.setRotationFromEuler(new three.Euler(Math.PI / 2, 0.5, 0))
+
+    butterfly.position.x = x * 0.8
+    butterfly.position.y = y * 0.8
+    butterfly.lookAt(0, 0, 0)
 
     renderer.render(scene, camera)
 }
