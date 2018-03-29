@@ -14,6 +14,8 @@ const camera = new three.PerspectiveCamera(90, vw / vh, 0.1, 1000)
 camera.position.z = 1
 scene.add(camera)
 
+const wingTexture = new three.TextureLoader().load('test.png')
+
 const uniforms = {
     time: {
         type: "f",
@@ -39,11 +41,12 @@ const screenGeometry = new three.PlaneGeometry(2, 2)
 const screenMesh = new three.Mesh(screenGeometry, screenMaterial)
 scene.add(screenMesh)
 
+const wingMaterial = new three.MeshBasicMaterial({map: wingTexture, side: three.DoubleSide})
 const blueMaterial = new three.MeshBasicMaterial({color: 0x0000FF, side: three.DoubleSide})
 const redMaterial = new three.MeshBasicMaterial({color: 0xFF0000, side: three.DoubleSide})
 const wingGeometry = new three.PlaneGeometry(0.2, 0.2)
-const leftWing = new three.Mesh(wingGeometry, blueMaterial)
-const rightWing = new three.Mesh(wingGeometry, redMaterial)
+const leftWing = new three.Mesh(wingGeometry, wingMaterial)
+const rightWing = new three.Mesh(wingGeometry, wingMaterial)
 scene.add(leftWing)
 scene.add(rightWing)
 

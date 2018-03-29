@@ -1,7 +1,7 @@
 import * as three from 'three'
 
 const maxSpeed = 0.01
-const maxForce = 0.0002
+const maxForce = 0.0001
 
 export default class Vehicle {
     constructor() {
