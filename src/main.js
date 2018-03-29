@@ -6,12 +6,13 @@ import Vehicle from './vehicle'
 
 const simplex = new SimplexNoise()
 
-const vw = window.innerWidth
-const vh = window.innerHeight
+let vw = window.innerWidth
+let vh = window.innerHeight
+let aspect = vw / vh
 
 const scene = new three.Scene()
-const camera = new three.PerspectiveCamera(90, vw / vh, 0.1, 1000)
-camera.position.z = 1
+const camera = new three.PerspectiveCamera(9, aspect, 0.1, 1000)
+camera.position.z = 10
 scene.add(camera)
 
 const wingTexture = new three.TextureLoader().load('test.png')
@@ -66,6 +67,22 @@ document.body.appendChild(renderer.domElement)
 const targetPosition = new three.Vector3()
 const vehicle = new Vehicle()
 
+function handleResize() {
+    vw = window.innerWidth
+    vh = window.innerHeight
+    aspect = vw / vh
+
+    camera.aspect = aspect
+    camera.updateProjectionMatrix()
+
+    uniforms.resolution.value.x = vw
+    uniforms.resolution.value.y = vh
+
+    renderer.setSize(vw, vh)
+}
+
+window.addEventListener('resize', handleResize)
+
 function draw() {
     requestAnimationFrame(draw)
 
@@ -85,7 +102,7 @@ function draw() {
     vehicle.seek(targetPosition)
     vehicle.update()
 
-    butterfly.position.x = vehicle.position.x
+    butterfly.position.x = vehicle.position.x * aspect
     butterfly.position.y = vehicle.position.y
     butterfly.lookAt(new three.Vector3(0, 2, -1).add(targetPosition))
 
