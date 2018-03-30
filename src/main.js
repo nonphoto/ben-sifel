@@ -4,6 +4,8 @@ import vertexShader from './vertex.glsl'
 import fragmentShader from './fragment.glsl'
 import Vehicle from './vehicle'
 
+const halfPi = Math.PI * 0.5
+
 const simplex = new SimplexNoise()
 
 let vw = window.innerWidth
@@ -48,15 +50,24 @@ const screenMesh = new three.Mesh(screenGeometry, screenMaterial)
 orthographicScene.add(screenMesh)
 
 const wingMaterial = new three.MeshBasicMaterial({map: wingTexture, side: three.DoubleSide})
-const blueMaterial = new three.MeshBasicMaterial({color: 0x0000FF, side: three.DoubleSide})
-const redMaterial = new three.MeshBasicMaterial({color: 0xFF0000, side: three.DoubleSide})
 const wingGeometry = new three.PlaneGeometry(1, 1)
+
+const leftWingContainer = new three.Object3D()
 const leftWing = new three.Mesh(wingGeometry, wingMaterial)
+leftWingContainer.add(leftWing)
+leftWing.position.set(0.5, 0, 0)
+leftWing.rotation.set(halfPi, 0, 0)
+
+const rightWingContainer = new three.Object3D()
 const rightWing = new three.Mesh(wingGeometry, wingMaterial)
+rightWingContainer.add(rightWing)
+rightWing.position.set(-0.5, 0, 0)
+rightWing.rotation.set(halfPi, 0, 0)
+rightWing.scale.x = -1
 
 const butterfly = new three.Object3D()
-butterfly.add(leftWing)
-butterfly.add(rightWing)
+butterfly.add(leftWingContainer)
+butterfly.add(rightWingContainer)
 perspectiveScene.add(butterfly)
 
 const renderer = new three.WebGLRenderer({alpha: true})
@@ -103,8 +114,8 @@ function draw() {
 
     const wingRotation = Math.sin(time * 0.01) * Math.PI * 0.4
 
-    leftWing.setRotationFromEuler(new three.Euler(Math.PI / 2, -wingRotation, 0))
-    rightWing.setRotationFromEuler(new three.Euler(Math.PI / 2, wingRotation, 0))
+    leftWingContainer.rotation.z = wingRotation
+    rightWingContainer.rotation.z = -wingRotation
 
     const w = vw * 0.1
     const h = vh * 0.1
