@@ -22,7 +22,7 @@ const orthographicCamera = new three.OrthographicCamera(-1, 1, 1, -1, 0.1, 10)
 orthographicCamera.position.z = 1
 orthographicScene.add(orthographicCamera)
 
-const wingTexture = new three.TextureLoader().load('test.png')
+const wingTexture = new three.TextureLoader().load('1.png')
 
 const uniforms = {
     time: {
@@ -49,19 +49,24 @@ const screenGeometry = new three.PlaneGeometry(2, 2)
 const screenMesh = new three.Mesh(screenGeometry, screenMaterial)
 orthographicScene.add(screenMesh)
 
-const wingMaterial = new three.MeshBasicMaterial({map: wingTexture, side: three.DoubleSide})
+const wingMaterial = new three.MeshBasicMaterial({
+    map: wingTexture,
+    side: three.DoubleSide,
+    transparent: true
+})
+
 const wingGeometry = new three.PlaneGeometry(1, 1)
 
 const leftWingContainer = new three.Object3D()
 const leftWing = new three.Mesh(wingGeometry, wingMaterial)
 leftWingContainer.add(leftWing)
-leftWing.position.set(0.5, 0, 0)
+leftWing.position.set(-0.5, 0, 0)
 leftWing.rotation.set(halfPi, 0, 0)
 
 const rightWingContainer = new three.Object3D()
 const rightWing = new three.Mesh(wingGeometry, wingMaterial)
 rightWingContainer.add(rightWing)
-rightWing.position.set(-0.5, 0, 0)
+rightWing.position.set(0.5, 0, 0)
 rightWing.rotation.set(halfPi, 0, 0)
 rightWing.scale.x = -1
 
