@@ -36,6 +36,10 @@ const uniforms = {
     center: {
         type: "v2",
         value: new three.Vector2()
+    },
+    flicker: {
+        type: "f",
+        value: 1
     }
 }
 
@@ -107,15 +111,16 @@ function draw() {
     const time = performance.now()
     targetPosition.x = simplex.noise2D(time * 0.00053, 0)
     targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
-    const radius = 100 + (simplex.noise2D(time * 0.001, 0) * 5)
+    const flicker = simplex.noise2D(time * 0.01, 0)
 
     vehicle.seek(targetPosition)
     vehicle.update()
 
-    butterfly.lookAt(new three.Vector3(0, 2, -1).add(targetPosition))
+    butterfly.lookAt(new three.Vector3(0, 1, -0.5).add(targetPosition))
 
     uniforms.time.value = time
     uniforms.center.value = vehicle.position
+    uniforms.flicker.value = flicker
 
     const wingRotation = Math.sin(time * 0.01) * Math.PI * 0.4
 
