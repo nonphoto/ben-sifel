@@ -4,8 +4,6 @@ import vertexShader from './vertex.glsl'
 import fragmentShader from './fragment.glsl'
 import Vehicle from './vehicle'
 
-const halfPi = Math.PI * 0.5
-
 const simplex = new SimplexNoise()
 
 let vw = window.innerWidth
@@ -65,13 +63,13 @@ const leftWingContainer = new three.Object3D()
 const leftWing = new three.Mesh(wingGeometry, wingMaterial)
 leftWingContainer.add(leftWing)
 leftWing.position.set(-0.5, 0, 0)
-leftWing.rotation.set(halfPi, 0, 0)
+leftWing.rotation.set(Math.PI * 0.5, 0, 0)
 
 const rightWingContainer = new three.Object3D()
 const rightWing = new three.Mesh(wingGeometry, wingMaterial)
 rightWingContainer.add(rightWing)
 rightWing.position.set(0.5, 0, 0)
-rightWing.rotation.set(halfPi, 0, 0)
+rightWing.rotation.set(Math.PI * 0.5, 0, 0)
 rightWing.scale.x = -1
 
 const butterfly = new three.Object3D()
@@ -86,6 +84,8 @@ document.body.appendChild(renderer.domElement)
 
 const targetPosition = new three.Vector3()
 const vehicle = new Vehicle()
+
+let accumulator = 0
 
 function handleResize() {
     vw = window.innerWidth
@@ -123,7 +123,8 @@ function draw() {
     uniforms.center.value = vehicle.position.clone()
     uniforms.flicker.value = flicker
 
-    const wingRotation = Math.sin(time * 0.01) * Math.PI * 0.4
+    accumulator += (vehicle.velocity.length() * 30) + 0.15
+    const wingRotation = Math.sin(accumulator) * Math.PI * 0.3
 
     leftWingContainer.rotation.z = wingRotation
     rightWingContainer.rotation.z = -wingRotation
