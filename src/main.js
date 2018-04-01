@@ -14,7 +14,7 @@ let aspect = vw / vh
 
 const perspectiveScene = new three.Scene()
 const perspectiveCamera = new three.PerspectiveCamera(30, aspect, 0.1, 1000)
-perspectiveCamera.position.z = 3
+perspectiveCamera.position.z = 8
 perspectiveScene.add(perspectiveCamera)
 
 const orthographicScene = new three.Scene()
@@ -92,8 +92,9 @@ function handleResize() {
     vh = window.innerHeight
     aspect = vw / vh
 
-    camera.aspect = aspect
-    camera.updateProjectionMatrix()
+    perspectiveCamera.aspect = aspect
+    perspectiveCamera.updateProjectionMatrix()
+    orthographicCamera.updateProjectionMatrix()
 
     uniforms.resolution.value.x = vw
     uniforms.resolution.value.y = vh
@@ -119,7 +120,7 @@ function draw() {
     butterfly.lookAt(new three.Vector3(0, 1, -0.5).add(targetPosition))
 
     uniforms.time.value = time
-    uniforms.center.value = vehicle.position
+    uniforms.center.value = vehicle.position.clone()
     uniforms.flicker.value = flicker
 
     const wingRotation = Math.sin(time * 0.01) * Math.PI * 0.4
@@ -127,8 +128,8 @@ function draw() {
     leftWingContainer.rotation.z = wingRotation
     rightWingContainer.rotation.z = -wingRotation
 
-    const w = vw * 0.1
-    const h = vh * 0.1
+    const w = vw * 0.3
+    const h = vh * 0.3
     const x = ((vehicle.position.x * 0.5) + 0.5) * vw - (w * 0.5)
     const y = ((-vehicle.position.y * 0.5) + 0.5) * vh - (h * 0.5)
 
