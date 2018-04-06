@@ -99,7 +99,9 @@ perspectiveScene.add(butterfly)
 const renderer = new three.WebGLRenderer({alpha: true})
 renderer.setSize(vw, vh)
 renderer.autoClear = false
-document.body.appendChild(renderer.domElement)
+
+const container = document.querySelector('.render-container')
+container.appendChild(renderer.domElement)
 
 function handleResize() {
     vw = window.innerWidth

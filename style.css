@@ -18,8 +18,14 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 2rem;
-    column-count: 2;
+    column-count: 1;
     column-gap: 2rem;
+}
+
+@media (min-width: 900px) {
+    body {
+        column-count: 2;
+    }
 }
 
 canvas {
