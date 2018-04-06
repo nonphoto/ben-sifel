@@ -10,8 +10,8 @@ export default class Vehicle {
         this.panic = 0;
     }
 
-    get inversePanic() {
-        return 1 - this.panic
+    startPanic() {
+        this.panic = 1
     }
 
     seek(target) {
@@ -20,24 +20,17 @@ export default class Vehicle {
     }
 
     flee(target) {
-        const desiredPosition = this.position.clone().sub(target)
-
-        if (desiredPosition.length() < 0.1) {
-            this.panic = 1
-        }
-
-        return desiredPosition.sub(this.velocity).setLength(maxForce * 10)
+        return this.velocity.clone().setLength(this.panic * maxForce * 10)
     }
 
     update(target, mouse) {
-        const seekForce = this.seek(target).multiplyScalar(this.inversePanic)
-        const fleeForce = this.flee(mouse).multiplyScalar(this.panic)
+        const seekForce = this.seek(target)
+        const fleeForce = this.flee(mouse)
 
-        const speed = (this.inversePanic + (2 * this.panic)) * maxSpeed
         this.velocity.add(seekForce).add(fleeForce)
-        this.velocity.clampLength(0, speed)
+        this.velocity.clampLength(0, (1 + this.panic) * maxSpeed)
         this.position.add(this.velocity)
 
-        this.panic = Math.max(this.panic - 0.01, 0)
+        this.panic = Math.max(this.panic - 0.05, 0)
     }
 }

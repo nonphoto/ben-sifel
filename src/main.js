@@ -83,9 +83,10 @@ renderer.autoClear = false
 document.body.appendChild(renderer.domElement)
 
 const targetPosition = new three.Vector3()
-const mousePosition = new three.Vector3(1, 1)
+const mousePosition = new three.Vector3()
 const vehicle = new Vehicle()
 
+let mouseMoved = false
 let accumulator = 0
 
 function handleResize() {
@@ -108,6 +109,7 @@ window.addEventListener('resize', handleResize)
 function handleMouseMove(event) {
     mousePosition.x = ((event.clientX / vw * 2) - 1) * aspect
     mousePosition.y = -((event.clientY / vh * 2) - 1)
+    mouseMoved = true
 }
 
 window.addEventListener('mousemove', handleMouseMove)
@@ -121,6 +123,13 @@ function draw() {
     targetPosition.x = simplex.noise2D(time * 0.00053, 0)
     targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
     const flicker = simplex.noise2D(time * 0.01, 0)
+
+    const mouseDistance = vehicle.position.clone().sub(mousePosition).length()
+    if (mouseDistance < 0.1 && mouseMoved) {
+        vehicle.startPanic()
+    }
+
+    mouseMoved = false
 
     vehicle.update(targetPosition, mousePosition)
 
