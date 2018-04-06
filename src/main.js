@@ -6,9 +6,28 @@ import Vehicle from './vehicle'
 
 const simplex = new SimplexNoise()
 
+const targetPosition = new three.Vector3()
+const mousePosition = new three.Vector3()
+const vehicle = new Vehicle()
+
+let mouseMoved = false
+let accumulator = 0
+
 let vw = window.innerWidth
 let vh = window.innerHeight
 let aspect = vw / vh
+
+function toWorldSpace(v) {
+    v.x = (v.x / vw * 2) - 1
+    v.y = 1 - (v.y / vh * 2)
+    return v
+}
+
+function toScreenSpace(v) {
+    v.x = ((v.x * 0.5) + 0.5) * vw
+    v.y = ((-v.y * 0.5) + 0.5) * vh
+    return v
+}
 
 const perspectiveScene = new three.Scene()
 const perspectiveCamera = new three.PerspectiveCamera(30, aspect, 0.1, 1000)
@@ -82,13 +101,6 @@ renderer.setSize(vw, vh)
 renderer.autoClear = false
 document.body.appendChild(renderer.domElement)
 
-const targetPosition = new three.Vector3()
-const mousePosition = new three.Vector3()
-const vehicle = new Vehicle()
-
-let mouseMoved = false
-let accumulator = 0
-
 function handleResize() {
     vw = window.innerWidth
     vh = window.innerHeight
@@ -107,19 +119,19 @@ function handleResize() {
 window.addEventListener('resize', handleResize)
 
 function handleMouseMove(event) {
-    mousePosition.x = ((event.clientX / vw * 2) - 1) * aspect
-    mousePosition.y = -((event.clientY / vh * 2) - 1)
+    mousePosition.x = event.clientX
+    mousePosition.y = event.clientY
+    toWorldSpace(mousePosition)
     mouseMoved = true
 }
 
 window.addEventListener('mousemove', handleMouseMove)
 
-function draw() {
+function draw(time) {
     requestAnimationFrame(draw)
 
     renderer.clear()
 
-    const time = performance.now()
     targetPosition.x = simplex.noise2D(time * 0.00053, 0)
     targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
     const flicker = simplex.noise2D(time * 0.01, 0)
@@ -147,10 +159,11 @@ function draw() {
 
     const w = vw * 0.3
     const h = vh * 0.3
-    const x = ((vehicle.position.x * 0.5) + 0.5) * vw - (w * 0.5)
-    const y = ((-vehicle.position.y * 0.5) + 0.5) * vh - (h * 0.5)
+    const viewPosition = toScreenSpace(vehicle.position.clone())
+    viewPosition.x -= (w * 0.5)
+    viewPosition.y -= (h * 0.5)
 
-    renderer.setViewport(x, y, w, h)
+    renderer.setViewport(viewPosition.x, viewPosition.y, w, h)
     renderer.render(perspectiveScene, perspectiveCamera)
 
     renderer.setViewport(0, 0, vw, vh)
