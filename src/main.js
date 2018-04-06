@@ -83,6 +83,7 @@ renderer.autoClear = false
 document.body.appendChild(renderer.domElement)
 
 const targetPosition = new three.Vector3()
+const mousePosition = new three.Vector3(1, 1)
 const vehicle = new Vehicle()
 
 let accumulator = 0
@@ -104,6 +105,13 @@ function handleResize() {
 
 window.addEventListener('resize', handleResize)
 
+function handleMouseMove(event) {
+    mousePosition.x = ((event.clientX / vw * 2) - 1) * aspect
+    mousePosition.y = -((event.clientY / vh * 2) - 1)
+}
+
+window.addEventListener('mousemove', handleMouseMove)
+
 function draw() {
     requestAnimationFrame(draw)
 
@@ -114,8 +122,7 @@ function draw() {
     targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
     const flicker = simplex.noise2D(time * 0.01, 0)
 
-    vehicle.seek(targetPosition)
-    vehicle.update()
+    vehicle.update(targetPosition, mousePosition)
 
     butterfly.lookAt(new three.Vector3(0, 1, -0.5).add(targetPosition))
 
