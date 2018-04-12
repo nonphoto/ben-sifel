@@ -4,172 +4,178 @@ import vertexShader from './vertex.glsl'
 import fragmentShader from './fragment.glsl'
 import Vehicle from './vehicle'
 
-const simplex = new SimplexNoise()
 
-const targetPosition = new three.Vector3()
-const mousePosition = new three.Vector3()
-const vehicle = new Vehicle()
+document.addEventListener('DOMContentLoaded', () => {
 
-let mouseMoved = false
-let accumulator = 0
+    const simplex = new SimplexNoise()
 
-let vw = window.innerWidth
-let vh = window.innerHeight
-let aspect = vw / vh
+    const targetPosition = new three.Vector3()
+    const mousePosition = new three.Vector3()
+    const vehicle = new Vehicle()
 
-function toWorldSpace(v) {
-    v.x = (v.x / vw * 2) - 1
-    v.y = 1 - (v.y / vh * 2)
-    return v
-}
+    let mouseMoved = false
+    let accumulator = 0
 
-function toScreenSpace(v) {
-    v.x = ((v.x * 0.5) + 0.5) * vw
-    v.y = ((-v.y * 0.5) + 0.5) * vh
-    return v
-}
+    let vw = window.innerWidth
+    let vh = window.innerHeight
+    let aspect = vw / vh
 
-const perspectiveScene = new three.Scene()
-const perspectiveCamera = new three.PerspectiveCamera(30, aspect, 0.1, 1000)
-perspectiveCamera.position.z = 8
-perspectiveScene.add(perspectiveCamera)
-
-const orthographicScene = new three.Scene()
-const orthographicCamera = new three.OrthographicCamera(-1, 1, 1, -1, 0.1, 10)
-orthographicCamera.position.z = 1
-orthographicScene.add(orthographicCamera)
-
-const wingTexture = new three.TextureLoader().load('1.png')
-
-const uniforms = {
-    time: {
-        type: "f",
-        value: 1.0
-    },
-    resolution: {
-        type: "v2",
-        value: new three.Vector2(vw, vh)
-    },
-    center: {
-        type: "v2",
-        value: new three.Vector2()
-    },
-    flicker: {
-        type: "f",
-        value: 1
+    function toWorldSpace(v) {
+        v.x = (v.x / vw * 2) - 1
+        v.y = 1 - (v.y / vh * 2)
+        return v
     }
-}
 
-const screenMaterial = new three.ShaderMaterial({
-    uniforms,
-    vertexShader,
-    fragmentShader,
-    transparent: true
-})
-const screenGeometry = new three.PlaneGeometry(2, 2)
-const screenMesh = new three.Mesh(screenGeometry, screenMaterial)
-orthographicScene.add(screenMesh)
+    function toScreenSpace(v) {
+        v.x = ((v.x * 0.5) + 0.5) * vw
+        v.y = ((-v.y * 0.5) + 0.5) * vh
+        return v
+    }
 
-const wingMaterial = new three.MeshBasicMaterial({
-    map: wingTexture,
-    side: three.DoubleSide,
-    transparent: true
-})
+    const perspectiveScene = new three.Scene()
+    const perspectiveCamera = new three.PerspectiveCamera(30, aspect, 0.1, 1000)
+    perspectiveCamera.position.z = 8
+    perspectiveScene.add(perspectiveCamera)
 
-const wingGeometry = new three.PlaneGeometry(1, 1)
+    const orthographicScene = new three.Scene()
+    const orthographicCamera = new three.OrthographicCamera(-1, 1, 1, -1, 0.1, 10)
+    orthographicCamera.position.z = 1
+    orthographicScene.add(orthographicCamera)
 
-const leftWingContainer = new three.Object3D()
-const leftWing = new three.Mesh(wingGeometry, wingMaterial)
-leftWingContainer.add(leftWing)
-leftWing.position.set(-0.5, 0, 0)
-leftWing.rotation.set(Math.PI * 0.5, 0, 0)
+    const wingTexture = new three.TextureLoader().load('1.png')
 
-const rightWingContainer = new three.Object3D()
-const rightWing = new three.Mesh(wingGeometry, wingMaterial)
-rightWingContainer.add(rightWing)
-rightWing.position.set(0.5, 0, 0)
-rightWing.rotation.set(Math.PI * 0.5, 0, 0)
-rightWing.scale.x = -1
+    const uniforms = {
+        time: {
+            type: "f",
+            value: 1.0
+        },
+        resolution: {
+            type: "v2",
+            value: new three.Vector2(vw, vh)
+        },
+        center: {
+            type: "v2",
+            value: new three.Vector2()
+        },
+        flicker: {
+            type: "f",
+            value: 1
+        }
+    }
 
-const butterfly = new three.Object3D()
-butterfly.add(leftWingContainer)
-butterfly.add(rightWingContainer)
-perspectiveScene.add(butterfly)
+    const screenMaterial = new three.ShaderMaterial({
+        uniforms,
+        vertexShader,
+        fragmentShader,
+        transparent: true
+    })
+    const screenGeometry = new three.PlaneGeometry(2, 2)
+    const screenMesh = new three.Mesh(screenGeometry, screenMaterial)
+    orthographicScene.add(screenMesh)
 
-const renderer = new three.WebGLRenderer({alpha: true})
-renderer.setSize(vw, vh)
-renderer.autoClear = false
+    const wingMaterial = new three.MeshBasicMaterial({
+        map: wingTexture,
+        side: three.DoubleSide,
+        transparent: true
+    })
 
-const container = document.querySelector('.render-container')
-container.appendChild(renderer.domElement)
+    const wingGeometry = new three.PlaneGeometry(1, 1)
 
-function handleResize() {
-    vw = window.innerWidth
-    vh = window.innerHeight
-    aspect = vw / vh
+    const leftWingContainer = new three.Object3D()
+    const leftWing = new three.Mesh(wingGeometry, wingMaterial)
+    leftWingContainer.add(leftWing)
+    leftWing.position.set(-0.5, 0, 0)
+    leftWing.rotation.set(Math.PI * 0.5, 0, 0)
 
-    perspectiveCamera.aspect = aspect
-    perspectiveCamera.updateProjectionMatrix()
-    orthographicCamera.updateProjectionMatrix()
+    const rightWingContainer = new three.Object3D()
+    const rightWing = new three.Mesh(wingGeometry, wingMaterial)
+    rightWingContainer.add(rightWing)
+    rightWing.position.set(0.5, 0, 0)
+    rightWing.rotation.set(Math.PI * 0.5, 0, 0)
+    rightWing.scale.x = -1
 
-    uniforms.resolution.value.x = vw
-    uniforms.resolution.value.y = vh
+    const butterfly = new three.Object3D()
+    butterfly.add(leftWingContainer)
+    butterfly.add(rightWingContainer)
+    perspectiveScene.add(butterfly)
 
+    const renderer = new three.WebGLRenderer({alpha: true})
     renderer.setSize(vw, vh)
-}
+    renderer.autoClear = false
 
-window.addEventListener('resize', handleResize)
+    const container = document.querySelector('.render-container')
+    container.appendChild(renderer.domElement)
 
-function handleMouseMove(event) {
-    mousePosition.x = event.clientX
-    mousePosition.y = event.clientY
-    toWorldSpace(mousePosition)
-    mouseMoved = true
-}
+    console.log(container)
 
-window.addEventListener('mousemove', handleMouseMove)
+    function handleResize() {
+        vw = window.innerWidth
+        vh = window.innerHeight
+        aspect = vw / vh
 
-function draw(time) {
-    requestAnimationFrame(draw)
+        perspectiveCamera.aspect = aspect
+        perspectiveCamera.updateProjectionMatrix()
+        orthographicCamera.updateProjectionMatrix()
 
-    renderer.clear()
+        uniforms.resolution.value.x = vw
+        uniforms.resolution.value.y = vh
 
-    targetPosition.x = simplex.noise2D(time * 0.00053, 0)
-    targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
-    const flicker = simplex.noise2D(time * 0.01, 0)
-
-    const mouseDistance = vehicle.position.clone().sub(mousePosition).length()
-    if (mouseDistance < 0.1 && mouseMoved) {
-        vehicle.startPanic()
+        renderer.setSize(vw, vh)
     }
 
-    mouseMoved = false
+    window.addEventListener('resize', handleResize)
 
-    vehicle.update(targetPosition, mousePosition)
+    function handleMouseMove(event) {
+        mousePosition.x = event.clientX
+        mousePosition.y = event.clientY
+        toWorldSpace(mousePosition)
+        mouseMoved = true
+    }
 
-    butterfly.lookAt(new three.Vector3(0, 1, -0.5).add(targetPosition))
+    window.addEventListener('mousemove', handleMouseMove)
 
-    uniforms.time.value = time
-    uniforms.center.value = vehicle.position.clone()
-    uniforms.flicker.value = flicker
+    function draw(time) {
+        requestAnimationFrame(draw)
 
-    accumulator += (vehicle.velocity.length() * 30) + 0.15
-    const wingRotation = Math.sin(accumulator) * Math.PI * 0.3
+        renderer.clear()
 
-    leftWingContainer.rotation.z = wingRotation
-    rightWingContainer.rotation.z = -wingRotation
+        targetPosition.x = simplex.noise2D(time * 0.00053, 0)
+        targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
+        const flicker = simplex.noise2D(time * 0.01, 0)
 
-    const w = vw * 0.3
-    const h = vh * 0.3
-    const viewPosition = toScreenSpace(vehicle.position.clone())
-    viewPosition.x -= (w * 0.5)
-    viewPosition.y -= (h * 0.5)
+        const mouseDistance = vehicle.position.clone().sub(mousePosition).length()
+        if (mouseDistance < 0.1 && mouseMoved) {
+            vehicle.startPanic()
+        }
 
-    renderer.setViewport(viewPosition.x, viewPosition.y, w, h)
-    renderer.render(perspectiveScene, perspectiveCamera)
+        mouseMoved = false
 
-    renderer.setViewport(0, 0, vw, vh)
-    renderer.render(orthographicScene, orthographicCamera)
-}
+        vehicle.update(targetPosition, mousePosition)
 
-requestAnimationFrame(draw)
+        butterfly.lookAt(new three.Vector3(0, 1, -0.5).add(targetPosition))
+
+        uniforms.time.value = time
+        uniforms.center.value = vehicle.position.clone()
+        uniforms.flicker.value = flicker
+
+        accumulator += (vehicle.velocity.length() * 30) + 0.15
+        const wingRotation = Math.sin(accumulator) * Math.PI * 0.3
+
+        leftWingContainer.rotation.z = wingRotation
+        rightWingContainer.rotation.z = -wingRotation
+
+        const w = vw * 0.3
+        const h = vh * 0.3
+        const viewPosition = toScreenSpace(vehicle.position.clone())
+        viewPosition.x -= (w * 0.5)
+        viewPosition.y -= (h * 0.5)
+
+        renderer.setViewport(viewPosition.x, viewPosition.y, w, h)
+        renderer.render(perspectiveScene, perspectiveCamera)
+
+        renderer.setViewport(0, 0, vw, vh)
+        renderer.render(orthographicScene, orthographicCamera)
+    }
+
+    requestAnimationFrame(draw)
+})
