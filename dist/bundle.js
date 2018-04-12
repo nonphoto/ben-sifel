@@ -101,7 +101,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"uniform float time;\\nuniform vec2 resolution;\\nuniform vec2 center;\\nuniform float flicker;\\n\\nvoid main()\\t{\\n    vec2 screenCoord = (gl_FragCoord.xy / resolution) * 2.0 - 1.0;\\n    vec2 screenCenter = center.xy;\\n    float aspect = resolution.x / resolution.y;\\n    screenCoord.x *= aspect;\\n    screenCenter.x *= aspect;\\n\\n    float l = length(screenCoord - screenCenter) + (flicker * 0.003);\\n    float glow = (1.0 - smoothstep(0.0, 0.1, l)) * 0.4;\\n    float ring = (smoothstep(0.05, 0.2, l) - smoothstep(0.15, 0.2, l)) * 0.1;\\n    float dark = smoothstep(0.2, 0.4, l) * 0.7;\\n    float vignette = smoothstep(0.2, 2.4, l) * 0.3;\\n    float alpha = glow + ring + dark + vignette;\\n    float value = 1.0 - step(0.2, l);\\n\\n    gl_FragColor = vec4(value, value, value, alpha);\\n}\"\n\n//# sourceURL=webpack:///./src/fragment.glsl?");
+eval("module.exports = \"uniform float time;\\r\\nuniform vec2 resolution;\\r\\nuniform vec2 center;\\r\\nuniform float flicker;\\r\\n\\r\\nvoid main()\\t{\\r\\n    vec2 screenCoord = (gl_FragCoord.xy / resolution) * 2.0 - 1.0;\\r\\n    vec2 screenCenter = center.xy;\\r\\n    float aspect = resolution.x / resolution.y;\\r\\n    screenCoord.x *= aspect;\\r\\n    screenCenter.x *= aspect;\\r\\n\\r\\n    float l = length(screenCoord - screenCenter) + (flicker * 0.003);\\r\\n    float glow = (1.0 - smoothstep(0.0, 0.1, l)) * 0.4;\\r\\n    float ring = (smoothstep(0.05, 0.2, l) - smoothstep(0.15, 0.2, l)) * 0.1;\\r\\n    float dark = smoothstep(0.2, 0.4, l) * 0.7;\\r\\n    float vignette = smoothstep(0.2, 2.4, l) * 0.3;\\r\\n    float alpha = glow + ring + dark + vignette;\\r\\n    float value = 1.0 - step(0.2, l);\\r\\n\\r\\n    gl_FragColor = vec4(value, value, value, alpha);\\r\\n}\"\n\n//# sourceURL=webpack:///./src/fragment.glsl?");
 
 /***/ }),
 
@@ -136,7 +136,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"void main()\\t{\\n    gl_Position = vec4(position, 1.0);\\n}\"\n\n//# sourceURL=webpack:///./src/vertex.glsl?");
+eval("module.exports = \"void main()\\t{\\r\\n    gl_Position = vec4(position, 1.0);\\r\\n}\"\n\n//# sourceURL=webpack:///./src/vertex.glsl?");
 
 /***/ })
 
