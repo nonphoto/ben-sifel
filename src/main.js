@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     orthographicCamera.position.z = 1
     orthographicScene.add(orthographicCamera)
 
-    const wingTexture = new three.TextureLoader().load('1.png')
+    const wingTexture = new three.TextureLoader().load('https://files.cargocollective.com/c136455/1.png')
 
     const uniforms = {
         time: {
