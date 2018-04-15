@@ -13,8 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mousePosition = new three.Vector3()
     const vehicle = new Vehicle()
 
-    let mouseMoved = false
-    let accumulator = 0
+    let wingProgress = 0
 
     let vw = window.innerWidth
     let vh = window.innerHeight
@@ -106,8 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.render-container')
     container.appendChild(renderer.domElement)
 
-    console.log(container)
-
     function handleResize() {
         vw = window.innerWidth
         vh = window.innerHeight
@@ -123,16 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.setSize(vw, vh)
     }
 
-    window.addEventListener('resize', handleResize)
-
     function handleMouseMove(event) {
         mousePosition.x = event.clientX
         mousePosition.y = event.clientY
         toWorldSpace(mousePosition)
-        mouseMoved = true
     }
-
-    window.addEventListener('mousemove', handleMouseMove)
 
     function draw(time) {
         requestAnimationFrame(draw)
@@ -143,14 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
         const flicker = simplex.noise2D(time * 0.01, 0)
 
-        const mouseDistance = vehicle.position.clone().sub(mousePosition).length()
-        if (mouseDistance < 0.1 && mouseMoved) {
-            vehicle.startPanic()
-        }
-
-        mouseMoved = false
-
-        vehicle.update(targetPosition, mousePosition)
+        vehicle.update(targetPosition)
 
         butterfly.lookAt(new three.Vector3(0, 1, -0.5).add(targetPosition))
 
@@ -158,8 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
         uniforms.center.value = vehicle.position.clone()
         uniforms.flicker.value = flicker
 
-        accumulator += (vehicle.velocity.length() * 30) + 0.15
-        const wingRotation = Math.sin(accumulator) * Math.PI * 0.3
+        wingProgress += (vehicle.velocity.length() * 30) + 0.15
+        const wingRotation = Math.sin(wingProgress) * Math.PI * 0.3
 
         leftWingContainer.rotation.z = wingRotation
         rightWingContainer.rotation.z = -wingRotation
@@ -177,5 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.render(orthographicScene, orthographicCamera)
     }
 
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('mousemove', handleMouseMove)
     requestAnimationFrame(draw)
 })
