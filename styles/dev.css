@@ -2,13 +2,14 @@ html {
     font-family: sans-serif;
     font-size: 22px;
     line-height: 1.5;
-    letter-spacing: 0.04ch;
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: white;
 }
 
 html,
-body {
+body,
+canvas,
+iframe {
     width: 100%;
     height: 100%;
 }
@@ -28,11 +29,49 @@ body {
     }
 }
 
-canvas {
+.render-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#overlay-trigger {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 2vw;
+    width: 6vw;
+    height: 6vw;
+    border-radius: 50%;
+    border-color: grey;
+    border-width: 2px;
+    border-style: solid;
+    z-index: 3;
+}
+
+#info-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: transparent;
+    z-index: 1;
+
+    background-color: black;
+    opacity: 0;
+    visibility: hidden;
+
+    transition-property: opacity, visibility;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1), step-end;
+    transition-duration: 600ms;
+}
+
+#info-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1), step-start;
 }
