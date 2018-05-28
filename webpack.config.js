@@ -1,10 +1,25 @@
 const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 
 module.exports = (env, options) => {
-
-  const isProduction = options.mode === 'production'
+  const loadPlugins = () => {
+    if (options.mode === 'development') {
+      return [
+        new HtmlWebpackPlugin()
+      ]
+    }
+    else {
+      return [
+        new HtmlWebpackPlugin({
+          template: './templates/empty.html',
+          inlineSource: '.(js|css)$'
+        }),
+        new HtmlWebpackInlineSourcePlugin()
+      ]
+    }
+  }
 
   return {
     entry: './src/main.js',
@@ -25,8 +40,6 @@ module.exports = (env, options) => {
         }
       ]
     },
-    plugins: [
-      new HtmlWebpackPlugin()
-    ]
+    plugins: loadPlugins()
   }
 }
