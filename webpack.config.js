@@ -1,5 +1,6 @@
 const path = require('path')
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
@@ -10,6 +11,9 @@ module.exports = (env, options) => {
 
   const loadPlugins = () => {
     return [
+      new MiniCssExtractPlugin({
+        filename: "[name].css"
+      }),
       new HtmlWebpackPlugin({
         template: `./templates/${options.mode}.html`,
       }),
@@ -35,6 +39,13 @@ module.exports = (env, options) => {
         {
           test: /\.glsl$/,
           loader: 'webpack-glsl-loader'
+        },
+        {
+          test: /\.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            "css-loader"
+          ]
         }
       ]
     },
