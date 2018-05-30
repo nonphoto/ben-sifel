@@ -2,7 +2,6 @@ const path = require('path')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
 const filename = 'bundle.js'
 
@@ -11,14 +10,13 @@ module.exports = (env, options) => {
 
   const loadPlugins = () => {
     return [
-      new MiniCssExtractPlugin({
-        filename: "[name].css"
-      }),
       new HtmlWebpackPlugin({
+        filename: `${options.mode}.html`,
         template: `./templates/${options.mode}.html`,
+        inject: !isProduction,
       }),
-      new ScriptExtHtmlWebpackPlugin({
-        inline: isProduction ? filename : undefined,
+      new MiniCssExtractPlugin({
+        filename: 'main.css'
       })
     ]
   }
@@ -27,7 +25,7 @@ module.exports = (env, options) => {
     entry: './src/main.js',
     output: {
       filename,
-      path: path.resolve(__dirname, `dist/${options.mode}/`)
+      path: path.resolve(__dirname, `dist/`)
     },
     module: {
       rules: [
