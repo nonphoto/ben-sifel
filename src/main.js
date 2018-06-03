@@ -7,6 +7,9 @@ import Vehicle from './vehicle'
 import css from './main.css'
 
 document.addEventListener('DOMContentLoaded', () => {
+    const renderContainer = document.createElement('div')
+    renderContainer.setAttribute('id', 'render-container')
+    document.body.appendChild(renderContainer)
 
     const simplex = new SimplexNoise()
 
@@ -103,8 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(vw, vh)
     renderer.autoClear = false
 
-    const container = document.querySelector('.render-container')
-    container.appendChild(renderer.domElement)
+    renderContainer.appendChild(renderer.domElement)
 
     function handleResize() {
         vw = window.innerWidth
