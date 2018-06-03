@@ -16,7 +16,8 @@ module.exports = (env, options) => {
         inject: !isProduction,
       }),
       new MiniCssExtractPlugin({
-        filename: 'main.css'
+        filename: '[name].css',
+        chunkFilename: '[id].css'
       })
     ]
   }
@@ -42,7 +43,7 @@ module.exports = (env, options) => {
           test: /\.css$/,
           use: [
             MiniCssExtractPlugin.loader,
-            "css-loader"
+            'css-loader'
           ]
         }
       ]

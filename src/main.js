@@ -4,7 +4,7 @@ import vertexShader from './vertex.glsl'
 import fragmentShader from './fragment.glsl'
 import Vehicle from './vehicle'
 
-import css from './styles/development.css'
+import css from './main.css'
 
 document.addEventListener('DOMContentLoaded', () => {
 
