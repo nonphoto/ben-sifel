@@ -3,29 +3,11 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const filename = 'bundle.js'
-
 module.exports = (env, options) => {
-  const isProduction = options.mode === 'production'
-
-  const loadPlugins = () => {
-    return [
-      new HtmlWebpackPlugin({
-        filename: `${options.mode}.html`,
-        template: `./templates/${options.mode}.html`,
-        inject: !isProduction,
-      }),
-      new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css'
-      })
-    ]
-  }
-
   return {
     entry: './src/main.js',
     output: {
-      filename,
+      filename: 'bundle.js',
       path: path.resolve(__dirname, `dist/`)
     },
     module: {
@@ -48,6 +30,16 @@ module.exports = (env, options) => {
         }
       ]
     },
-    plugins: loadPlugins()
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: `${options.mode}.html`,
+        template: `./templates/${options.mode}.html`,
+        inject: options.mode === 'development',
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css'
+      })
+    ]
   }
 }
