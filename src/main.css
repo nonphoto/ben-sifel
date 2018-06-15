@@ -140,16 +140,29 @@ html {
     justify-content: center;
     align-items: center;
     position: absolute;
+
     top: 0;
     left: 0;
+    z-index: 3;
+
     margin: 2vw;
     width: 6vw;
     height: 6vw;
+
     border-radius: 50%;
-    border-color: grey;
+    border-color: rgba(0, 0, 0, 0.3);
     border-width: 2px;
     border-style: solid;
-    z-index: 3;
+
+    transition-property: color, border-color, transform;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    transition-duration: 600ms;
+}
+
+#overlay-trigger.is-inverted {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: rotate(180deg);
 }
 
 [data-id="2261087"] {

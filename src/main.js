@@ -110,8 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlayTrigger = document.createElement('p')
     overlayTrigger.id = 'overlay-trigger'
     overlayTrigger.innerText = '?'
-    console.log(overlayTrigger)
     document.body.appendChild(overlayTrigger)
+
+    overlayTrigger.addEventListener('click', () => {
+        overlayTrigger.classList.toggle('is-inverted')
+        infoOverlay.classList.toggle('is-visible')
+    })
 
     function handleResize() {
         vw = window.innerWidth
