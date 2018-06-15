@@ -5,6 +5,10 @@
     src: url('https://files.cargocollective.com/c136455/Panama-Regular.otf') format('opentype');
 }
 
+html {
+    font-family: sans-serif;
+}
+
 [data-predefined-style="true"] h1 {
     font-family: 'Panama', serif;
     text-transform: uppercase;
@@ -119,8 +123,8 @@
 	margin-left: 16vw;
 }
 
-.render-container canvas {
-    position: fixed;
+#render-canvas {
+    position: absolute;
     z-index: 100;
     top: 0;
     left: 0;
@@ -129,47 +133,12 @@
     background-color: transparent;
 }
 
-html {
-    font-family: sans-serif;
-    font-size: 22px;
-    line-height: 1.5;
-    color: black;
-    background-color: white;
-}
-
-html,
-body,
-canvas,
-iframe {
-    width: 100%;
-    height: 100%;
-}
-
-body {
-    overflow: hidden;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 2rem;
-    column-count: 1;
-    column-gap: 2rem;
-}
-
-@media (min-width: 900px) {
-    body {
-        column-count: 2;
-    }
-}
-
-.render-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-    z-index: 2;
-    pointer-events: none;
-}
-
 #overlay-trigger {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
@@ -183,15 +152,13 @@ body {
     z-index: 3;
 }
 
-#info-overlay {
-    position: absolute;
+[data-id="2261087"] {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
 
-    background-color: black;
     opacity: 0;
     visibility: hidden;
 
@@ -200,7 +167,7 @@ body {
     transition-duration: 600ms;
 }
 
-#info-overlay.is-visible {
+[data-id="2261087"].is-visible {
     opacity: 1;
     visibility: visible;
 

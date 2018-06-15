@@ -103,8 +103,15 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(vw, vh)
     renderer.autoClear = false
 
-    const container = document.querySelector('.render-container')
-    container.appendChild(renderer.domElement)
+    const infoOverlay = document.querySelector('[data-id="2261087"]')
+    infoOverlay.appendChild(renderer.domElement)
+    renderer.domElement.id = 'render-canvas'
+
+    const overlayTrigger = document.createElement('p')
+    overlayTrigger.id = 'overlay-trigger'
+    overlayTrigger.innerText = '?'
+    console.log(overlayTrigger)
+    document.body.appendChild(overlayTrigger)
 
     function handleResize() {
         vw = window.innerWidth
