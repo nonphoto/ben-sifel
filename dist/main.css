@@ -1,1 +1,189 @@
-@font-face{font-family:Panama;font-weight:400;font-style:normal;src:url("https://files.cargocollective.com/c136455/Panama-Regular.otf") format("opentype")}html{font-family:sans-serif}[data-predefined-style=true] h1{font-family:Panama,serif;text-transform:uppercase;color:#000;font-size:4rem}[data-predefined-style=true] h2{font-family:Panama,serif;text-transform:uppercase;color:#000;font-size:3rem}[data-predefined-style=true] small{font-family:Panama,serif;text-transform:uppercase;color:#000;font-size:1.8rem}.margin-bottom{margin-bottom:10vw}.margin-top{margin-top:10vw}.width-regular{padding-left:10vw;padding-right:10vw}.width-narrow{padding-left:20vw;padding-right:20vw}.mobile .width-narrow,.mobile .width-regular{padding-left:16vw;padding-right:10vw}.width-narrow,.width-regular{box-sizing:border-box;width:100%}.width-narrow img,.width-regular img{width:100%!important;height:auto!important}.limit-width{max-width:18em}.about-button,.home-button{box-sizing:border-box;border-style:solid;border-width:1px;border-radius:50%;width:6vw;height:6vw;margin:2vw;display:flex;justify-content:center;align-items:center}.mobile .about-button,.mobile .home-button{width:10vw;height:10vw;margin:3vw}.about-button{border-color:rgba(0,0,0,.2)}.home-button{border-color:hsla(0,0%,100%,.4);color:#fff;transform:rotate(180deg)}.header{box-sizing:border-box;margin-top:2vw;padding-right:2vw;margin-left:10vw}.mobile .header{margin-left:16vw}.info-page{margin:2vw 2vw 2vw 10vw}.mobile .info-page{margin-left:16vw}#render-canvas{position:absolute;z-index:100;top:0;left:0;width:100%;height:100%;background-color:transparent}#overlay-trigger{cursor:pointer;user-select:none;display:flex;justify-content:center;align-items:center;position:absolute;top:0;left:0;z-index:3;margin:2vw;width:6vw;height:6vw;border-radius:50%;border:2px solid rgba(0,0,0,.3);transition-property:color,border-color,transform;transition-timing-function:cubic-bezier(.23,1,.32,1);transition-duration:.6s}#overlay-trigger.is-inverted{color:#fff;border-color:hsla(0,0%,100%,.4);transform:rotate(180deg)}[data-id="2261087"]{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;transition-property:opacity,visibility;transition-timing-function:cubic-bezier(.23,1,.32,1),step-end;transition-duration:.6s}[data-id="2261087"].is-visible{opacity:1;visibility:visible;transition-timing-function:cubic-bezier(.23,1,.32,1),step-start}
+@font-face {
+    font-family: 'Panama';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://files.cargocollective.com/c136455/Panama-Regular.otf') format('opentype');
+}
+
+html {
+    font-family: sans-serif;
+}
+
+[data-predefined-style="true"] h1 {
+    font-family: 'Panama', serif;
+    text-transform: uppercase;
+    color: black;
+    font-size: 4rem;
+}
+
+[data-predefined-style="true"] h2 {
+    font-family: 'Panama', serif;
+    text-transform: uppercase;
+    color: black;
+    font-size: 3rem;
+}
+
+[data-predefined-style="true"] small {
+    font-family: 'Panama', serif;
+    text-transform: uppercase;
+    color: black;
+    font-size: 1.8rem;
+}
+
+.margin-bottom {
+    margin-bottom: 10vw;
+}
+
+.margin-top {
+    margin-top: 10vw;
+}
+
+.width-regular {
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
+.width-narrow {
+    padding-left: 20vw;
+    padding-right: 20vw;
+}
+
+.mobile .width-regular,
+.mobile .width-narrow {
+    padding-left: 16vw;
+    padding-right: 10vw;
+}
+
+.width-regular,
+.width-narrow {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.width-regular img,
+.width-narrow img {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.limit-width {
+    max-width: 18em;
+}
+
+.about-button,
+.home-button {
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50%;
+    width: 6vw;
+    height: 6vw;
+    margin: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile .about-button,
+.mobile .home-button {
+    width: 10vw;
+    height: 10vw;
+    margin: 3vw
+}
+
+.about-button {
+    border-color : rgba(0, 0, 0, 0.2);
+}
+
+.home-button {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    transform: rotate(180deg);
+}
+
+.header {
+    box-sizing: border-box;
+    margin-top: 2vw;
+    padding-right: 2vw;
+    margin-left: 10vw;
+}
+
+.mobile .header {
+    margin-left: 16vw;
+}
+
+.info-page {
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    margin-left: 10vw;
+    margin-right: 2vw;
+}
+
+.mobile .info-page {
+	margin-left: 16vw;
+}
+
+#render-canvas {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+#overlay-trigger {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    z-index: 200;
+
+    margin: 2vw;
+    width: 6vw;
+    height: 6vw;
+
+    border-radius: 50%;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-width: 2px;
+    border-style: solid;
+
+    transition-property: color, border-color, transform;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    transition-duration: 600ms;
+}
+
+#overlay-trigger.is-inverted {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: rotate(180deg);
+}
+
+.page.container[data-id="2261087"] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: black;
+    opacity: 0;
+    visibility: hidden;
+
+    transition-property: opacity, visibility;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1), step-end;
+    transition-duration: 600ms;
+}
+
+.page.container[data-id="2261087"].is-visible {
+    opacity: 1;
+    visibility: visible;
+
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1), step-start;
+}
