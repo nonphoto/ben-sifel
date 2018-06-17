@@ -7,6 +7,9 @@ import Vehicle from './vehicle'
 import css from './main.css'
 
 document.addEventListener('DOMContentLoaded', () => {
+    const renderContainer = document.createElement('div')
+    renderContainer.setAttribute('id', 'render-container')
+    document.body.appendChild(renderContainer)
 
     const simplex = new SimplexNoise()
 

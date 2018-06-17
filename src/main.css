@@ -12,21 +12,21 @@ html {
 [data-predefined-style="true"] h1 {
     font-family: 'Panama', serif;
     text-transform: uppercase;
-    color: black;
+    color: white;
     font-size: 4rem;
 }
 
 [data-predefined-style="true"] h2 {
     font-family: 'Panama', serif;
     text-transform: uppercase;
-    color: black;
+    color: white;
     font-size: 3rem;
 }
 
 [data-predefined-style="true"] small {
     font-family: 'Panama', serif;
     text-transform: uppercase;
-    color: black;
+    color: white;
     font-size: 1.8rem;
 }
 
@@ -92,7 +92,8 @@ html {
 }
 
 .about-button {
-    border-color : rgba(0, 0, 0, 0.2);
+    border-color : rgba(255, 255, 255, 0.4);
+    color: white;
 }
 
 .home-button {
