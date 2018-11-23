@@ -1,16 +1,17 @@
 {
-  "name": "butterfly-demo",
+  "name": "ben-sifel",
   "version": "1.0.0",
-  "description": "",
+  "description": "A portfolio site for Ben Sifel.",
   "main": "main.js",
   "scripts": {
+    "start": "npm run build && npm run alias",
     "build": "webpack -p --config webpack.config.js",
-    "watch": "webpack --config webpack.config.js --watch",
-    "server": "http-server"
+    "deploy": "now",
+    "alias": "now alias ben-sifel"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonphoto/butterfly-demo.git"
+    "url": "git+https://github.com/nonphoto/ben-sifel.git"
   },
   "author": "Jonas Luebbers",
   "license": "MIT",
@@ -23,6 +24,7 @@
     "babel-loader": "^7.1.3",
     "babel-preset-env": "^1.6.1",
     "http-server": "^0.11.1",
+    "now": "^12.1.5",
     "webpack": "^4.8.3",
     "webpack-cli": "^3.1.2",
     "webpack-glsl-loader": "^1.0.1"

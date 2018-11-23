@@ -14,7 +14,7 @@ void main()	{
     float glow = (1.0 - smoothstep(0.0, 0.1, l)) * 0.4;
     float ring = (smoothstep(0.05, 0.2, l) - smoothstep(0.15, 0.2, l)) * 0.1;
     float dark = smoothstep(0.2, 0.4, l) * 0.7;
-    // float vignette = smoothstep(0.2, 2.4, l) * 0.3;
+    float vignette = smoothstep(0.2, 2.4, l) * 0.3;
     float alpha = glow + ring + dark;
     float value = 1.0 - step(0.2, l);
 

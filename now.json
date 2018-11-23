@@ -1,0 +1,7 @@
+{
+    "version": 2,
+    "builds": [
+        { "src": "bundle.js", "use": "@now/static" },
+        { "src": "main.css", "use": "@now/static" }
+    ]
+}
