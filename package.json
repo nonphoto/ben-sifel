@@ -4,7 +4,7 @@
   "description": "A portfolio site for Ben Sifel.",
   "main": "main.js",
   "scripts": {
-    "start": "npm run build && npm run alias",
+    "start": "npm run build && npm run deploy && npm run alias",
     "build": "webpack -p --config webpack.config.js",
     "deploy": "now",
     "alias": "now alias ben-sifel"
