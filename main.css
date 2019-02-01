@@ -5,17 +5,17 @@
     src: url('https://files.cargocollective.com/c136455/Panama-Regular.otf') format('opentype');
 }
 
-[data-predefined-style="true"] h1 {
+[data-predefined-style="true"] h1, h1 {
     font-family: 'Panama', serif;
     text-transform: uppercase;
 }
 
-[data-predefined-style="true"] h2 {
+[data-predefined-style="true"] h2, h2 {
     font-family: 'Panama', serif;
     text-transform: uppercase;
 }
 
-[data-predefined-style="true"] small {
+[data-predefined-style="true"] small, small {
     font-family: 'Panama', serif;
     text-transform: uppercase;
 }

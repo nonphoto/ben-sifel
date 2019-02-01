@@ -5,10 +5,13 @@ html, body {
 
 html {
     background-color: black;
-    color: white !important;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 20vmin;
+    color: white;
+    font-size: 15vmin;
     text-transform: uppercase;
+}
+
+h1 {
+    font-weight: normal;
 }
 
 body {
