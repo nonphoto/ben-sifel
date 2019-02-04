@@ -2,6 +2,7 @@ uniform float time;
 uniform vec2 resolution;
 uniform vec2 center;
 uniform float flicker;
+uniform float invert;
 
 void main()	{
     vec2 screenCoord = (gl_FragCoord.xy / resolution) * 2.0 - 1.0;
@@ -15,8 +16,9 @@ void main()	{
     float ring = (smoothstep(0.05, 0.2, l) - smoothstep(0.15, 0.2, l)) * 0.1;
     float dark = smoothstep(0.2, 0.4, l) * 0.7;
     float vignette = smoothstep(0.2, 2.4, l) * 0.3;
-    float alpha = glow + ring + dark;
-    float value = 1.0 - step(0.2, l);
+    float alpha = glow + ring + (dark * invert);
+    float value = step(0.2, l);
+    value = invert - ((invert * 2.0 - 1.0) * value);
 
     gl_FragColor = vec4(value, value, value, alpha);
 }

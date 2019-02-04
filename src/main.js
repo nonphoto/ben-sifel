@@ -46,22 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const wingTexture = new three.TextureLoader().load('https://files.cargocollective.com/c136455/1.png')
 
     const uniforms = {
-        time: {
-            type: "f",
-            value: 1.0
-        },
-        resolution: {
-            type: "v2",
-            value: new three.Vector2(vw, vh)
-        },
-        center: {
-            type: "v2",
-            value: new three.Vector2()
-        },
-        flicker: {
-            type: "f",
-            value: 1
-        }
+        time: { type: "f", value: 1.0 },
+        resolution: { type: "v2", value: new three.Vector2(vw, vh) },
+        center: { type: "v2", value: new three.Vector2() },
+        flicker: { type: "f", value: 1 },
+        invert: { type: "f", value: 1 }
     }
 
     const screenMaterial = new three.ShaderMaterial({
