@@ -1,4 +1,5 @@
 import * as three from 'three'
+import anime from 'animejs'
 import SimplexNoise from 'simplex-noise'
 import vertexShader from './vertex.glsl'
 import fragmentShader from './fragment.glsl'
@@ -116,6 +117,21 @@ document.addEventListener('DOMContentLoaded', () => {
         toWorldSpace(mousePosition)
     }
 
+    function handleMouseClick() {
+        const turningOn = uniforms.invert.value <= 0.5
+        anime({
+            targets: uniforms.invert,
+            value: turningOn ? 1 : 0,
+            easing: 'easeOutQuint',
+        })
+        anime({
+            targets: document.documentElement,
+            backgroundColor: turningOn ? '#000000' : '#FFFFFF',
+            color: turningOn ? '#FFFFFF' : '#000000',
+            easing: 'easeOutQuint'
+        })
+    }
+
     function draw(time) {
         requestAnimationFrame(draw)
 
@@ -154,5 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', handleResize)
     window.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('click', handleMouseClick)
     requestAnimationFrame(draw)
 })

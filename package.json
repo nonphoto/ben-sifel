@@ -17,6 +17,7 @@
   "author": "Jonas Luebbers",
   "license": "UNLICENSED",
   "dependencies": {
+    "animejs": "^3.0.1",
     "simplex-noise": "^2.4.0",
     "three": "^0.90.0"
   },
