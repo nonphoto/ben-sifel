@@ -46,12 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const wingTexture = new three.TextureLoader().load('https://files.cargocollective.com/c136455/1.png')
 
+    const renderTarget = new three.WebGLRenderTarget( vw, vh, {
+        wrapS: three.ClampToEdgeWrapping,
+        wrapT: three.ClampToEdgeWrapping,
+        format: three.RGBAFormat,
+        stencilBuffer: false,
+        depthBuffer: false
+    })
+
     const uniforms = {
-        time: { type: "f", value: 1.0 },
-        resolution: { type: "v2", value: new three.Vector2(vw, vh) },
-        center: { type: "v2", value: new three.Vector2() },
-        flicker: { type: "f", value: 1 },
-        invert: { type: "f", value: 1 }
+        time: { type: 'f', value: 1.0 },
+        resolution: { type: 'v2', value: new three.Vector2(vw, vh) },
+        center: { type: 'v2', value: new three.Vector2() },
+        flicker: { type: 'f', value: 1 },
+        invert: { type: 'f', value: 1 },
+        butterflyTexture: { type: 't', value: renderTarget.texture },
     }
 
     const screenMaterial = new three.ShaderMaterial({
@@ -155,14 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
         leftWingContainer.rotation.z = wingRotation
         rightWingContainer.rotation.z = -wingRotation
 
-        const w = vw * 0.3
-        const h = vh * 0.3
-        const viewPosition = toScreenSpace(vehicle.position.clone())
-        viewPosition.x -= (w * 0.5)
-        viewPosition.y -= (h * 0.5)
-
-        renderer.setViewport(viewPosition.x, viewPosition.y, w, h)
-        renderer.render(perspectiveScene, perspectiveCamera)
+        renderer.setViewport(0, 0, vw, vh)
+        renderer.render(perspectiveScene, perspectiveCamera, renderTarget, true)
 
         renderer.setViewport(0, 0, vw, vh)
         renderer.render(orthographicScene, orthographicCamera)
