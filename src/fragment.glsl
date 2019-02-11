@@ -13,16 +13,17 @@ void main()	{
     screenCoord.x *= aspect;
     screenCenter.x *= aspect;
 
-    vec4 sample = texture2D(butterflyTexture, scaledFragCoord - center + 0.5);
-
     float l = length(screenCoord - screenCenter) + (flicker * 0.003);
     float glow = (1.0 - smoothstep(0.0, 0.1, l)) * 0.4;
     float ring = (smoothstep(0.05, 0.2, l) - smoothstep(0.15, 0.2, l)) * 0.1;
     float dark = smoothstep(0.2, 0.4, l) * 0.7;
     float vignette = smoothstep(0.2, 2.4, l) * 0.3;
-    float alpha = glow + ring + (dark * invert);
-    float value = step(0.2, l) - sample.r;
+    // float alpha = glow + ring + (dark * invert);
+    float alpha = glow + ring + dark;
+    float value = step(0.2, l);
     value = invert - ((invert * 2.0 - 1.0) * value);
 
-    gl_FragColor = vec4(value, value, value, alpha + sample.a);
+    gl_FragColor = texture2D(butterflyTexture, (scaledFragCoord - center) * 1.5 + 0.5);
+    gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(value), alpha);
+    gl_FragColor.a = 1.0;
 }
