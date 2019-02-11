@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resolution: { type: 'v2', value: new three.Vector2(vw, vh) },
         center: { type: 'v2', value: new three.Vector2() },
         flicker: { type: 'f', value: 1 },
-        invert: { type: 'f', value: 1 },
+        invert: { type: 'f', value: 0 },
         butterflyTexture: { type: 't', value: renderTarget.texture },
     }
 
@@ -127,16 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleMouseClick() {
-        const turningOn = uniforms.invert.value <= 0.5
+        const shouldTurnOn = uniforms.invert.value <= 0.5
         anime({
             targets: uniforms.invert,
-            value: turningOn ? 1 : 0,
+            value: shouldTurnOn ? 1 : 0,
             easing: 'easeOutQuint',
         })
         anime({
             targets: document.documentElement,
-            backgroundColor: turningOn ? '#000000' : '#FFFFFF',
-            color: turningOn ? '#FFFFFF' : '#000000',
+            backgroundColor: shouldTurnOn ? '#FFFFFF' : '#000000',
+            color: shouldTurnOn ? '#000000' : '#FFFFFF',
             easing: 'easeOutQuint'
         })
     }
