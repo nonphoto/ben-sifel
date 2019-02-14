@@ -8,16 +8,34 @@
 [data-predefined-style="true"] h1, h1 {
     font-family: 'Panama', serif;
     text-transform: uppercase;
+    color: inherit;
 }
 
 [data-predefined-style="true"] h2, h2 {
     font-family: 'Panama', serif;
     text-transform: uppercase;
+    color: inherit;
 }
 
 [data-predefined-style="true"] small, small {
     font-family: 'Panama', serif;
     text-transform: uppercase;
+    color: inherit;
+}
+
+[data-predefined-style="true"] bodycopy,
+[data-predefined-style="true"] bodycopy a {
+    color: inherit;
+}
+
+html {
+    background-color: #000000;
+    color: #ffffff
+}
+
+body {
+    background-color: inherit !important;
+    color: inherit !important;
 }
 
 .flex-row {

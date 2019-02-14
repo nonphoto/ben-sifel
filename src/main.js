@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         anime({
             targets: document.documentElement,
-            backgroundColor: shouldTurnOn ? '#FFFFFF' : '#000000',
-            color: shouldTurnOn ? '#000000' : '#FFFFFF',
+            backgroundColor: shouldTurnOn ? '#ffffff' : '#000000',
+            color: shouldTurnOn ? '#000000' : '#ffffff',
             easing: 'easeOutQuint'
         })
     }
