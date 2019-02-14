@@ -19,7 +19,7 @@ void main()	{
     lightAlpha += (smoothstep(0.05, 0.2, l) - smoothstep(0.15, 0.2, l)) * 0.1;
 
     float darkAlpha = smoothstep(0.2, 0.4, l) * 0.7;
-    darkAlpha += smoothstep(0.2, 2.4, l) * 0.3;
+    // darkAlpha += smoothstep(0.2, 2.4, l) * 0.3;
     darkAlpha *= (1.0 - invert);
 
     gl_FragColor = texture2D(butterflyTexture, (scaledFragCoord - center) * 1.5 + 0.5);

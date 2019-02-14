@@ -126,7 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
         toWorldSpace(mousePosition)
     }
 
-    function handleMouseClick() {
+    function handleMouseClick(event) {
+        if (event.target.href) return
+
         const shouldTurnOn = uniforms.invert.value <= 0.5
         anime({
             targets: uniforms.invert,
@@ -164,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leftWingContainer.rotation.z = wingRotation
         rightWingContainer.rotation.z = -wingRotation
 
-        renderer.setViewport(0, 0, vw, vh)
+        renderer.setViewport(0, 0, 256, 256)
         renderer.render(perspectiveScene, perspectiveCamera, renderTarget, true)
 
         renderer.setViewport(0, 0, vw, vh)
