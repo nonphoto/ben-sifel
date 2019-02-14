@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let wingProgress = 0
 
     let vw = window.innerWidth
-    let vh = window.innerHeight
+    let vh = window.innerHeight * 1.2
     let aspect = vw / vh
 
     function toWorldSpace(v) {
@@ -106,8 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     renderContainer.appendChild(renderer.domElement)
 
     function handleResize() {
-        vw = window.innerWidth
-        vh = window.innerHeight
+        const innerWidth = window.innerWidth
+        const innerHeight = window.innerHeight * 1.2
+
+        if (Math.abs(innerWidth - vw) < 1) return
+
+        vw = innerWidth
+        vh = innerHeight
         aspect = vw / vh
 
         perspectiveCamera.aspect = aspect
