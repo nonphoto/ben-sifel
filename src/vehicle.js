@@ -1,5 +1,4 @@
-import * as three from 'three'
-
+const three = window.THREE
 const maxSpeed = 0.01
 const maxForce = 0.0001
 

@@ -1,12 +1,13 @@
-import * as three from 'three'
 import anime from 'animejs'
 import SimplexNoise from 'simplex-noise'
 import vertexShader from './vertex.glsl'
 import fragmentShader from './fragment.glsl'
 import Vehicle from './vehicle'
 
+const three = window.THREE
+
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.body.dataset.hasAttribute('data-adminview')) return
+    if (document.body.hasAttribute('data-adminview')) return
 
     const renderContainer = document.createElement('div')
     renderContainer.setAttribute('id', 'render-container')

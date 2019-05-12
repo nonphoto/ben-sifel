@@ -18,8 +18,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "animejs": "^3.0.1",
-    "simplex-noise": "^2.4.0",
-    "three": "^0.90.0"
+    "simplex-noise": "^2.4.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
