@@ -21,9 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let wingProgress = 0
 
-    let vw = window.innerWidth
-    let vh = window.innerHeight * 1.2
-    let aspect = vw / vh
+    let vw = renderContainer.clientWidth
+    let vh = renderContainer.clientHeight
 
     function toWorldSpace(v) {
         v.x = (v.x / vw * 2) - 1
@@ -38,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const perspectiveScene = new three.Scene()
-    const perspectiveCamera = new three.PerspectiveCamera(30, aspect, 0.1, 1000)
-    perspectiveCamera.position.z = 8
+    const perspectiveCamera = new three.PerspectiveCamera(30, 1, 0.1, 1000)
+    perspectiveCamera.position.z = 5
     perspectiveScene.add(perspectiveCamera)
 
     const orthographicScene = new three.Scene()
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const wingTexture = new three.TextureLoader().load('https://files.cargocollective.com/c136455/1.png')
 
-    const renderTarget = new three.WebGLRenderTarget( vw, vh, {
+    const renderTarget = new three.WebGLRenderTarget( vh, vh, {
         wrapS: three.ClampToEdgeWrapping,
         wrapT: three.ClampToEdgeWrapping,
         format: three.RGBAFormat,
@@ -109,22 +108,20 @@ document.addEventListener('DOMContentLoaded', () => {
     renderContainer.appendChild(renderer.domElement)
 
     function handleResize() {
-        const innerWidth = window.innerWidth
-        const innerHeight = window.innerHeight * 1.2
+        const innerWidth = renderContainer.clientWidth
+        const innerHeight = renderContainer.clientHeight
 
         if (Math.abs(innerWidth - vw) < 1) return
 
         vw = innerWidth
         vh = innerHeight
-        aspect = vw / vh
 
-        perspectiveCamera.aspect = aspect
-        perspectiveCamera.updateProjectionMatrix()
         orthographicCamera.updateProjectionMatrix()
 
         uniforms.resolution.value.x = vw
         uniforms.resolution.value.y = vh
 
+        renderTarget.setSize(vh, vh)
         renderer.setSize(vw, vh)
     }
 
@@ -174,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         leftWingContainer.rotation.z = wingRotation
         rightWingContainer.rotation.z = -wingRotation
 
-        renderer.setViewport(0, 0, 256, 256)
+        renderer.setViewport(0, 0, vh, vh)
         renderer.render(perspectiveScene, perspectiveCamera, renderTarget, true)
 
         renderer.setViewport(0, 0, vw, vh)
