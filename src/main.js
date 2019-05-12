@@ -6,6 +6,8 @@ import fragmentShader from './fragment.glsl'
 import Vehicle from './vehicle'
 
 document.addEventListener('DOMContentLoaded', () => {
+    if (document.body.dataset.hasAttribute('data-adminview')) return
+
     const renderContainer = document.createElement('div')
     renderContainer.setAttribute('id', 'render-container')
     document.body.appendChild(renderContainer)
