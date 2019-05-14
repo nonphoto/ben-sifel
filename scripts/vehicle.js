@@ -1,4 +1,5 @@
-const three = window.THREE
+import * as three from '/web_modules/three.js'
+
 const maxSpeed = 0.01
 const maxForce = 0.0001
 

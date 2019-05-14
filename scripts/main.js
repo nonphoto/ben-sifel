@@ -1,10 +1,10 @@
-import anime from 'animejs'
-import SimplexNoise from 'simplex-noise'
-import vertexShader from './vertex.glsl'
-import fragmentShader from './fragment.glsl'
-import Vehicle from './vehicle'
+import * as three from '/web_modules/three.js'
+import anime from '/web_modules/animejs.js'
+import SimplexNoise from '/web_modules/simplex-noise-esm.js'
 
-const three = window.THREE
+import vertexShader from './vertex.js'
+import fragmentShader from './fragment.js'
+import Vehicle from './vehicle.js'
 
 document.addEventListener('DOMContentLoaded', () => {
     if (document.body.hasAttribute('data-adminview')) return

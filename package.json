@@ -8,7 +8,8 @@
     "build": "webpack -p --config webpack.config.js",
     "watch": "webpack -p --config webpack.config.js --watch",
     "deploy": "now",
-    "alias": "now alias ben-sifel"
+    "alias": "now alias ben-sifel",
+    "prepare": "npx @pika/web"
   },
   "repository": {
     "type": "git",
@@ -18,15 +19,11 @@
   "license": "UNLICENSED",
   "dependencies": {
     "animejs": "^3.0.1",
-    "simplex-noise": "^2.4.0"
+    "simplex-noise-esm": "^2.5.0-esm.0",
+    "three": "^0.90.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.3",
-    "babel-preset-env": "^1.6.1",
-    "now": "^12.1.5",
-    "webpack": "^4.8.3",
-    "webpack-cli": "^3.1.2",
-    "webpack-glsl-loader": "^1.0.1"
+    "@pika/web": "^0.4.2",
+    "now": "^12.1.5"
   }
 }

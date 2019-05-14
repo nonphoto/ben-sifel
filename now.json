@@ -1,8 +1,18 @@
 {
     "version": 2,
+    "name": "ben-sifel",
     "builds": [
-        { "src": "panama-regular.otf", "use": "@now/static" },
-        { "src": "bundle.js", "use": "@now/static" },
-        { "src": "main.css", "use": "@now/static" }
+        {
+            "src": "panama-regular.otf",
+            "use": "@now/static"
+        },
+        {
+            "src": "bundle.js",
+            "use": "@now/static"
+        },
+        {
+            "src": "main.css",
+            "use": "@now/static"
+        }
     ]
 }
