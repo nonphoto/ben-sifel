@@ -2,7 +2,7 @@
     font-family: 'Panama';
     font-weight: normal;
     font-style: normal;
-    src: url('https://files.cargocollective.com/c136455/Panama-Regular.otf') format('opentype');
+    src: url('./panama-regular.otf') format('opentype');
 }
 
 [data-predefined-style="true"] h1, h1 {

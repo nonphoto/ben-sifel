@@ -2,13 +2,9 @@
   "name": "ben-sifel",
   "version": "1.0.0",
   "description": "A portfolio site for Ben Sifel.",
-  "main": "main.js",
+  "main": "static/main.js",
   "scripts": {
-    "start": "npm run build && npm run deploy && npm run alias",
-    "build": "webpack -p --config webpack.config.js",
-    "watch": "webpack -p --config webpack.config.js --watch",
     "deploy": "now",
-    "alias": "now alias ben-sifel",
     "prepare": "npx @pika/web"
   },
   "repository": {

@@ -1,6 +1,6 @@
-import * as three from '/web_modules/three.js'
-import anime from '/web_modules/animejs.js'
-import SimplexNoise from '/web_modules/simplex-noise-esm.js'
+import * as three from '../web_modules/three.js'
+import anime from '../web_modules/animejs.js'
+import SimplexNoise from '../web_modules/simplex-noise-esm.js'
 
 import vertexShader from './vertex.js'
 import fragmentShader from './fragment.js'
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     orthographicCamera.position.z = 1
     orthographicScene.add(orthographicCamera)
 
-    const wingTexture = new three.TextureLoader().load('https://files.cargocollective.com/c136455/1.png')
+    const wingTexture = new three.TextureLoader().load('https://ben-sifel.nonphoto.now.sh/static/wing.png')
 
     const renderTarget = new three.WebGLRenderTarget( vh, vh, {
         wrapS: three.ClampToEdgeWrapping,

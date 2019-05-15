@@ -3,15 +3,11 @@
     "name": "ben-sifel",
     "builds": [
         {
-            "src": "panama-regular.otf",
+            "src": "static/**",
             "use": "@now/static"
         },
         {
-            "src": "bundle.js",
-            "use": "@now/static"
-        },
-        {
-            "src": "main.css",
+            "src": "web_modules/**",
             "use": "@now/static"
         }
     ]
