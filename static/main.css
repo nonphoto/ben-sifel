@@ -19,6 +19,7 @@
 
 [data-predefined-style="true"] small, small {
     font-family: 'Panama', serif;
+    font-size: 1.015em !important;
     text-transform: uppercase;
     color: inherit;
 }
@@ -30,12 +31,18 @@
 
 html {
     background-color: #000000;
-    color: #ffffff
+    color: #f5f5f5
 }
 
 body {
     background-color: inherit !important;
     color: inherit !important;
+}
+
+svg {
+    width: 100px;
+    height: 100px;
+    fill: #f5f5f5;
 }
 
 .flex-row {
