@@ -16,7 +16,7 @@
   "dependencies": {
     "animejs": "^3.0.1",
     "simplex-noise-esm": "^2.5.0-esm.0",
-    "three": "^0.90.0"
+    "three": "^0.137.0"
   },
   "devDependencies": {
     "@pika/web": "^0.4.2",
