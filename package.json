@@ -4,8 +4,7 @@
   "description": "A portfolio site for Ben Sifel.",
   "main": "static/main.js",
   "scripts": {
-    "deploy": "now",
-    "prepare": "npx @pika/web"
+    "build": "vite build"
   },
   "repository": {
     "type": "git",
@@ -19,7 +18,11 @@
     "three": "^0.90.0"
   },
   "devDependencies": {
-    "@pika/web": "^0.4.2",
-    "now": "^12.1.5"
+    "vite": "^8.3.0"
+  },
+  "packageManager": "pnpm@10.2.0",
+  "engines": {
+    "node": "22.x",
+    "pnpm": "10.x"
   }
 }

@@ -1,4 +1,4 @@
-import * as three from '../web_modules/three.js'
+import * as three from 'three'
 
 const maxSpeed = 0.01
 const maxForce = 0.0001

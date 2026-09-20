@@ -1,6 +1,6 @@
-import * as three from '../web_modules/three.js'
-import anime from '../web_modules/animejs.js'
-import SimplexNoise from '../web_modules/simplex-noise-esm.js'
+import * as three from 'three'
+import anime from 'animejs'
+import SimplexNoise from 'simplex-noise-esm'
 
 import vertexShader from './vertex.js'
 import fragmentShader from './fragment.js'
