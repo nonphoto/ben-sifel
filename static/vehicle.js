@@ -2,11 +2,13 @@ import * as three from '../web_modules/three.js'
 
 const maxSpeed = 0.01
 const maxForce = 0.0001
+const dtConstant = 1000 / 60
 
 export default class Vehicle {
     constructor() {
         this.position = new three.Vector3()
         this.velocity = new three.Vector3()
+        this.progress = 0
     }
 
     seek(target) {
@@ -14,11 +16,11 @@ export default class Vehicle {
         return desiredPosition.sub(this.velocity).clampLength(0, maxForce)
     }
 
-    update(target, mouse) {
-        const seekForce = this.seek(target)
-
-        this.velocity.add(seekForce)
+    update(target, dt) {
+        const dtFactor = dt / dtConstant
+        this.velocity.add(this.seek(target).clone().multiplyScalar(dtFactor))
         this.velocity.clampLength(0, maxSpeed)
-        this.position.add(this.velocity)
+        this.position.add(this.velocity.clone().multiplyScalar(dtFactor))
+        this.progress += this.velocity.length() * dtFactor
     }
 }

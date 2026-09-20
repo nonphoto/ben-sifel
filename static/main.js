@@ -148,8 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    let prevTime = document.timeline.currentTime
+
     function draw(time) {
         requestAnimationFrame(draw)
+
+        const dt = time - prevTime
 
         renderer.clear()
 
@@ -157,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         targetPosition.y = simplex.noise2D(time * 0.00055, 1000)
         const flicker = simplex.noise2D(time * 0.01, 0)
 
-        vehicle.update(targetPosition)
+        vehicle.update(targetPosition, dt)
 
         butterfly.lookAt(new three.Vector3(0, 1, -0.5).add(targetPosition))
 
@@ -165,9 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         uniforms.center.value = vehicle.position.clone()
         uniforms.flicker.value = flicker
 
-        wingProgress += (vehicle.velocity.length() * 30) + 0.15
-        const wingRotation = Math.sin(wingProgress) * Math.PI * 0.3
-
+        const wingRotation = Math.sin((vehicle.progress * 30) + (time * 0.01)) * Math.PI * 0.3
         leftWingContainer.rotation.z = wingRotation
         rightWingContainer.rotation.z = -wingRotation
 
@@ -176,6 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderer.setViewport(0, 0, vw, vh)
         renderer.render(orthographicScene, orthographicCamera)
+
+        prevTime = time
     }
 
     window.addEventListener('resize', handleResize)
